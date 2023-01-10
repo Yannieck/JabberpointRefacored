@@ -39,7 +39,7 @@ public class Slide {
 	}
 
 	//Create a TextItem out of a String and add the TextItem
-	public void append(int level, String message) {
+	public void append(StyleType level, String message) {
 		append(new TextItem(level, message));
 	}
 
@@ -63,13 +63,13 @@ public class Slide {
 		float scale = getScale(area);
 	    int y = area.y;
 	//The title is treated separately
-	    SlideItem slideItem = new TextItem(0, getTitle());
-	    Style style = Style.getStyle(slideItem.getLevel());
+	    SlideItem slideItem = new TextItem(StyleType.H1, getTitle());
+	    Style style = StyleFactory.getStyle(slideItem.getLevel());
 	    slideItem.draw(area.x, y, scale, g, style, view);
 	    y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    for (int number=0; number<getSize(); number++) {
 	      slideItem = (SlideItem)getSlideItems().elementAt(number);
-	      style = Style.getStyle(slideItem.getLevel());
+	      style = StyleFactory.getStyle(slideItem.getLevel());
 	      slideItem.draw(area.x, y, scale, g, style, view);
 	      y += slideItem.getBoundingBox(g, view, scale, style).height;
 	    }

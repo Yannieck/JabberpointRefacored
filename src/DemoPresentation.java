@@ -12,36 +12,36 @@ class DemoPresentation extends Accessor {
         Slide slide;
         slide = new Slide();
         slide.setTitle("JabberPoint");
-        slide.append(1, "The Java prestentation tool");
-        slide.append(2, "Copyright (c) 1996-2000: Ian Darwin");
-        slide.append(2, "Copyright (c) 2000-now:");
-        slide.append(2, "Gert Florijn and Sylvia Stuurman");
-        slide.append(4, "Calling Jabberpoint without a filename");
-        slide.append(4, "will show this presentation");
-        slide.append(1, "Navigate:");
-        slide.append(3, "Next slide: PgDn or Enter");
-        slide.append(3, "Previous slide: PgUp or up-arrow");
-        slide.append(3, "Quit: q or Q");
+        slide.append(StyleType.H2, "The Java prestentation tool");
+        slide.append(StyleType.H3, "Copyright (c) 1996-2000: Ian Darwin");
+        slide.append(StyleType.H3, "Copyright (c) 2000-now:");
+        slide.append(StyleType.H3, "Gert Florijn and Sylvia Stuurman");
+        slide.append(StyleType.P, "Calling Jabberpoint without a filename");
+        slide.append(StyleType.P, "will show this presentation");
+        slide.append(StyleType.H2, "Navigate:");
+        slide.append(StyleType.H4, "Next slide: PgDn or Enter");
+        slide.append(StyleType.H4, "Previous slide: PgUp or up-arrow");
+        slide.append(StyleType.H4, "Quit: q or Q");
         presentation.append(slide);
 
         slide = new Slide();
         slide.setTitle("Demonstration of levels and styles");
-        slide.append(1, "Level 1");
-        slide.append(2, "Level 2");
-        slide.append(1, "Again level 1");
-        slide.append(1, "Level 1 has style number 1");
-        slide.append(2, "Level 2 has style number 2");
-        slide.append(3, "This is how level 3 looks like");
-        slide.append(4, "And this is level 4");
+        slide.append(StyleType.H2, "Level 1");
+        slide.append(StyleType.H3, "Level 2");
+        slide.append(StyleType.H2, "Again level 1");
+        slide.append(StyleType.H2, "Level 1 has style number 1");
+        slide.append(StyleType.H3, "Level 2 has style number 2");
+        slide.append(StyleType.H4, "This is how level 3 looks like");
+        slide.append(StyleType.P, "And this is level 4");
         presentation.append(slide);
 
         slide = new Slide();
         slide.setTitle("The third slide");
-        slide.append(1, "To open a new presentation,");
-        slide.append(2, "use File->Open from the menu.");
-        slide.append(1, " ");
-        slide.append(1, "This is the end of the presentation.");
-        slide.append(new BitmapItem(1, "JabberPoint.jpg"));
+        slide.append(StyleType.H2, "To open a new presentation,");
+        slide.append(StyleType.H3, "use File->Open from the menu.");
+        slide.append(StyleType.H2, " ");
+        slide.append(StyleType.H2, "This is the end of the presentation.");
+        slide.append(new BitmapItem(StyleType.H2, "JabberPoint.jpg"));
         presentation.append(slide);
     }
 

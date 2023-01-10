@@ -14,18 +14,18 @@ import java.awt.image.ImageObserver;
 */
 
 public abstract class SlideItem {
-	private int level = 0; //The level of the SlideItem
+	private StyleType level; //The level of the SlideItem
 
-	public SlideItem(int lev) {
-		level = lev;
+	public SlideItem(StyleType level) {
+		this.level = level;
 	}
 
 	public SlideItem() {
-		this(0);
+		this(StyleType.P);
 	}
 
 //Returns the level
-	public int getLevel() {
+	public StyleType getLevel() {
 		return level;
 	}
 
