@@ -1,4 +1,4 @@
-import java.util.Vector;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -125,9 +125,9 @@ public class XMLAccessor extends Accessor {
 			Slide slide = presentation.getSlide(slideNumber);
 			out.println("<slide>");
 			out.println("<title>" + slide.getTitle() + "</title>");
-			Vector<SlideItem> slideItems = slide.getSlideItems();
+			ArrayList<SlideItem> slideItems = slide.getSlideItems();
 			for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
-				SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
+				SlideItem slideItem = (SlideItem) slideItems.get(itemNumber);
 				out.print("<item kind="); 
 				if (slideItem instanceof TextItem) {
 					out.print("\"text\" level=\"" + slideItem.getLevel() + "\">");
