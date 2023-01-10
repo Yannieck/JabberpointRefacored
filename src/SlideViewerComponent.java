@@ -18,14 +18,14 @@ import javax.swing.JFrame;
  */
 
 public class SlideViewerComponent extends JComponent {
-		
+
 	private Slide slide; //The current slide
 	private Font labelFont = null; //The font for labels
 	private Presentation presentation = null; //The presentation
 	private JFrame frame = null;
-	
+
 	private static final long serialVersionUID = 227L;
-	
+
 	private static final Color BGCOLOR = Color.white;
 	private static final Color COLOR = Color.black;
 	private static final String FONTNAME = "Dialog";
@@ -33,10 +33,11 @@ public class SlideViewerComponent extends JComponent {
 	private static final int FONTHEIGHT = 10;
 	private static final int XPOS = 1100;
 	private static final int YPOS = 20;
+	private int currentPage;
+	private int pageCount;
 
-	public SlideViewerComponent(Presentation pres, JFrame frame) {
-		setBackground(BGCOLOR); 
-		presentation = pres;
+	public SlideViewerComponent(JFrame frame) {
+		setBackground(BGCOLOR);
 		labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
 		this.frame = frame;
 	}
@@ -45,28 +46,28 @@ public class SlideViewerComponent extends JComponent {
 		return new Dimension(Slide.WIDTH, Slide.HEIGHT);
 	}
 
-	public void update(Presentation presentation, Slide data) {
+	public void update(Slide data, String title, int currentPage, int pageCount) {
 		if (data == null) {
 			repaint();
 			return;
 		}
-		this.presentation = presentation;
+		this.currentPage = currentPage;
+		this.pageCount = pageCount;
 		this.slide = data;
 		repaint();
-		frame.setTitle(presentation.getTitle());
+		frame.setTitle(title);
 	}
 
 //Draw the slide
 	public void paintComponent(Graphics g) {
 		g.setColor(BGCOLOR);
 		g.fillRect(0, 0, getSize().width, getSize().height);
-		if (presentation.getSlideNumber() < 0 || slide == null) {
+		if (this.currentPage < 0 || slide == null) {
 			return;
 		}
 		g.setFont(labelFont);
 		g.setColor(COLOR);
-		g.drawString("Slide " + (1 + presentation.getSlideNumber()) + " of " +
-                 presentation.getSize(), XPOS, YPOS);
+		g.drawString("Slide " + (1 + this.currentPage + " of " + this.pageCount), XPOS, YPOS);
 		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
 		slide.draw(g, area, this);
 	}
