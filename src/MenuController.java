@@ -55,6 +55,7 @@ public class MenuController extends MenuBar {
                 try {
                     xmlAccessor.loadFile(presentation, TESTFILE);
                     presentation.setSlideNumber(0);
+                    parent.setTitle(presentation.getTitle());
                 } catch (IOException exc) {
                     JOptionPane.showMessageDialog(parent, IOEX + exc,
                             LOADERR, JOptionPane.ERROR_MESSAGE);

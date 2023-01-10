@@ -21,8 +21,6 @@ public class SlideViewerComponent extends JComponent {
 
 	private Slide slide; //The current slide
 	private Font labelFont = null; //The font for labels
-	private Presentation presentation = null; //The presentation
-	private JFrame frame = null;
 
 	private static final long serialVersionUID = 227L;
 
@@ -36,17 +34,18 @@ public class SlideViewerComponent extends JComponent {
 	private int currentPage;
 	private int pageCount;
 
-	public SlideViewerComponent(JFrame frame) {
+	public SlideViewerComponent() {
 		setBackground(BGCOLOR);
 		labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
-		this.frame = frame;
+		this.currentPage = 0;
+		this.pageCount = 0;
 	}
 
 	public Dimension getPreferredSize() {
 		return new Dimension(Slide.WIDTH, Slide.HEIGHT);
 	}
 
-	public void update(Slide data, String title, int currentPage, int pageCount) {
+	public void update(Slide data, int currentPage, int pageCount) {
 		if (data == null) {
 			repaint();
 			return;
@@ -55,7 +54,6 @@ public class SlideViewerComponent extends JComponent {
 		this.pageCount = pageCount;
 		this.slide = data;
 		repaint();
-		frame.setTitle(title);
 	}
 
 //Draw the slide
