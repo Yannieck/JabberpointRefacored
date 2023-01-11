@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 
 public class Slide {
-	protected String title; //The title is kept separately
-	protected ArrayList<SlideItem> slideItems; //The SlideItems are kept in a ArrayList
+	private String title; //The title is kept separately
+	private ArrayList<SlideItem> slideItems; //The SlideItems are kept in a ArrayList
 
 	public Slide() {
 		slideItems = new ArrayList<SlideItem>();

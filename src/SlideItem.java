@@ -13,17 +13,30 @@ import java.awt.Graphics;
 */
 
 public abstract class SlideItem {
-	private StyleType styleType; //The level of the SlideItem
+	private final StyleType styleType;
 
 	public SlideItem(StyleType styleType) {
 		this.styleType = styleType;
 	}
 
-	public SlideItem() {
-		this(StyleType.P);
-	}
+	/**
+	 * Get the bounding box
+	 * @param graphics the Graphics object to draw to
+	 * @param scale scalar
+	 * @return rectangle with the position and size of the bounding box
+	 */
+	public abstract Rectangle getBoundingBox(Graphics graphics, float scale);
 
-//Returns the level
+	/**
+	 * Draw the SlideItem to the screen
+	 * @param x draw origin x
+	 * @param y draw origin y
+	 * @param scale scalar
+	 * @param graphics the Graphics object to draw to
+	 */
+	public abstract void draw(int x, int y, float scale,
+			Graphics graphics);
+
 	public StyleType getLevel() {
 		return styleType;
 	}
@@ -31,11 +44,4 @@ public abstract class SlideItem {
 	protected Style getStyle(){
 		return StyleFactory.getStyle(this.styleType);
 	}
-
-//Returns the bounding box
-	public abstract Rectangle getBoundingBox(Graphics g, float scale);
-
-//Draws the item
-	public abstract void draw(int x, int y, float scale, 
-			Graphics g);
 }
