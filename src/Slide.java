@@ -1,5 +1,4 @@
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 
 /** <p>A slide. This class has drawing functionality.</p>
@@ -14,10 +13,10 @@ import java.util.ArrayList;
 
 public class Slide {
 	protected String title; //The title is kept separately
-	protected ArrayList<SlideItem> items; //The SlideItems are kept in a ArrayList
+	protected ArrayList<SlideItem> slideItems; //The SlideItems are kept in a ArrayList
 
 	public Slide() {
-		items = new ArrayList<SlideItem>();
+		slideItems = new ArrayList<SlideItem>();
 	}
 
 	/**
@@ -25,7 +24,7 @@ public class Slide {
 	 * @param slideItem the SlideItem to add to the slide
 	 */
 	public void append(SlideItem slideItem) {
-		items.add(slideItem);
+		slideItems.add(slideItem);
 	}
 
 	/**
@@ -38,34 +37,32 @@ public class Slide {
 	}
 
 	/**
-	 * Draws the slide with the slideItems to the screen.
+	 * Draws the slide with the slideItems to the screen
 	 * @param graphics the Graphics object to draw to
 	 * @param area the area to draw inside of
 	 */
 	public void draw(Graphics graphics, Rectangle area) {
-		float scale = calculateScale(area);
-	    int y = area.y;
+		float scale = calculateScale(area.width, area.height);
+		Point drawOrigin = new Point(area.x, area.y);
 
-	    SlideItem slideItem = new TextItem(StyleType.H1, getTitle());
-	    Style style = StyleFactory.getStyle(slideItem.getLevel());
-	    slideItem.draw(area.x, y, scale, graphics, style);
-	    y += slideItem.getBoundingBox(graphics, scale, style).height;
+		SlideItem titleItem = new TextItem(StyleType.H1, this.title);
+		titleItem.draw(drawOrigin.x, drawOrigin.y, scale, graphics);
+		drawOrigin.y += titleItem.getBoundingBox(graphics, scale).height;
 
-	    for (int number = 0; number< getSlideCount(); number++) {
-	      slideItem = getSlideItems(number);
-	      style = StyleFactory.getStyle(slideItem.getLevel());
-	      slideItem.draw(area.x, y, scale, graphics, style);
-	      y += slideItem.getBoundingBox(graphics, scale, style).height;
-	    }
-	  }
+		for (SlideItem slideItem : this.slideItems) {
+			slideItem.draw(drawOrigin.x, drawOrigin.y, scale, graphics);
+			drawOrigin.y += slideItem.getBoundingBox(graphics, scale).height;
+		}
+	}
 
 	/**
 	 * Calculates the scalar to scale the page content to the window size
-	 * @param area Rectangle with the container size
+	 * @param width The height of the draw area
+	 * @param height The height of the draw area
 	 * @return scalar to scale components
 	 */
-	private float calculateScale(Rectangle area) {
-		return Math.min(((float)area.width) / ((float)SlideViewerFrame.WIDTH), ((float)area.height) / ((float)SlideViewerFrame.HEIGHT));
+	private float calculateScale(float width, float height) {
+		return Math.min(width / ((float)SlideViewerFrame.WIDTH), height / ((float)SlideViewerFrame.HEIGHT));
 	}
 
 	public String getTitle() {
@@ -77,10 +74,10 @@ public class Slide {
 	}
 
 	public SlideItem getSlideItems(int slideIndex){
-		return this.items.get(slideIndex);
+		return this.slideItems.get(slideIndex);
 	}
 
 	public int getSlideCount() {
-		return items.size();
+		return slideItems.size();
 	}
 }

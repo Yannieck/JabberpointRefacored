@@ -46,17 +46,17 @@ public class BitmapItem extends SlideItem {
     }
 
     //Returns the bounding box of the image
-    public Rectangle getBoundingBox(Graphics g, float scale, Style myStyle) {
-        return new Rectangle((int) (myStyle.getIndent() * scale), 0,
+    public Rectangle getBoundingBox(Graphics g, float scale) {
+        return new Rectangle((int) (this.getStyle().getIndent() * scale), 0,
                 (int) (bufferedImage.getWidth() * scale),
-                ((int) (myStyle.getLeading() * scale)) +
+                ((int) (this.getStyle().getLeading() * scale)) +
                         (int) (bufferedImage.getHeight() * scale));
     }
 
     //Draws the image
-    public void draw(int x, int y, float scale, Graphics g, Style myStyle) {
-        int width = x + (int) (myStyle.getIndent() * scale);
-        int height = y + (int) (myStyle.getLeading() * scale);
+    public void draw(int x, int y, float scale, Graphics g) {
+        int width = x + (int) (this.getStyle().getIndent() * scale);
+        int height = y + (int) (this.getStyle().getLeading() * scale);
         g.drawImage(bufferedImage, width, height, (int) (bufferedImage.getWidth() * scale),
                 (int) (bufferedImage.getHeight() * scale), null);
     }

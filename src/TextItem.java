@@ -53,9 +53,9 @@ public class TextItem extends SlideItem {
 
 //Returns the bounding box of an Item
 	public Rectangle getBoundingBox(Graphics g,
-			float scale, Style myStyle) {
-		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
-		int xsize = 0, ysize = (int) (myStyle.getLeading() * scale);
+			float scale) {
+		List<TextLayout> layouts = getLayouts(g, this.getStyle(), scale);
+		int xsize = 0, ysize = (int) (this.getStyle().getLeading() * scale);
 		Iterator<TextLayout> iterator = layouts.iterator();
 		while (iterator.hasNext()) {
 			TextLayout layout = iterator.next();
@@ -68,20 +68,19 @@ public class TextItem extends SlideItem {
 			}
 			ysize += layout.getLeading() + layout.getDescent();
 		}
-		return new Rectangle((int) (myStyle.getIndent() *scale), 0, xsize, ysize );
+		return new Rectangle((int) (this.getStyle().getIndent() *scale), 0, xsize, ysize );
 	}
 
 //Draws the item
-	public void draw(int x, int y, float scale, Graphics g, 
-			Style myStyle) {
+	public void draw(int x, int y, float scale, Graphics g) {
 		if (text == null || text.length() == 0) {
 			return;
 		}
-		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
-		Point pen = new Point(x + (int)(myStyle.getIndent() * scale),
-				y + (int) (myStyle.getLeading() * scale));
+		List<TextLayout> layouts = getLayouts(g, this.getStyle(), scale);
+		Point pen = new Point(x + (int)(this.getStyle().getIndent() * scale),
+				y + (int) (this.getStyle().getLeading() * scale));
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setColor(myStyle.getColor());
+		g2d.setColor(this.getStyle().getColor());
 		Iterator<TextLayout> it = layouts.iterator();
 		while (it.hasNext()) {
 			TextLayout layout = it.next();
