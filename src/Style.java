@@ -28,10 +28,6 @@ public class Style {
 		this.leading = leading;
 	}
 
-	public String toString() {
-		return "[" + indent + "," + color + "; " + font.getSize() + " on " + leading + "]";
-	}
-
 	public Font getFont(float scale) {
 		int currentFontSize = font.getSize();
 		return this.font.deriveFont(currentFontSize * scale);

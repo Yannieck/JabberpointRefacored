@@ -60,8 +60,4 @@ public class BitmapItem extends SlideItem {
         g.drawImage(bufferedImage, width, height, (int) (bufferedImage.getWidth() * scale),
                 (int) (bufferedImage.getHeight() * scale), null);
     }
-
-    public String toString() {
-        return "BitmapItem[" + getLevel() + "," + imageName + "]";
-    }
 }

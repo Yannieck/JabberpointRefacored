@@ -103,8 +103,4 @@ public class TextItem extends SlideItem {
     	}
     	return layouts;
 	}
-
-	public String toString() {
-		return "TextItem[" + getLevel()+","+getText()+"]";
-	}
 }
