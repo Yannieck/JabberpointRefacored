@@ -67,6 +67,6 @@ public class SlideViewerComponent extends JComponent {
 		g.setColor(COLOR);
 		g.drawString("Slide " + (1 + this.currentPage + " of " + this.pageCount), XPOS, YPOS);
 		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
-		slide.draw(g, area, this);
+		slide.draw(g, area);
 	}
 }

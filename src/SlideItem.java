@@ -1,6 +1,5 @@
 import java.awt.Rectangle;
 import java.awt.Graphics;
-import java.awt.image.ImageObserver;
 
 /** <p>The abstract class for items on a slide.<p>
  * <p>All SlideItems have drawing capabilities.</p>
@@ -30,10 +29,9 @@ public abstract class SlideItem {
 	}
 
 //Returns the bounding box
-	public abstract Rectangle getBoundingBox(Graphics g, 
-			ImageObserver observer, float scale, Style style);
+	public abstract Rectangle getBoundingBox(Graphics g, float scale, Style style);
 
 //Draws the item
 	public abstract void draw(int x, int y, float scale, 
-			Graphics g, Style style, ImageObserver observer);
+			Graphics g, Style style);
 }

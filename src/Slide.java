@@ -1,6 +1,5 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 /** <p>A slide. This class has drawing functionality.</p>
@@ -21,60 +20,67 @@ public class Slide {
 		items = new ArrayList<SlideItem>();
 	}
 
-	//Add a SlideItem
-	public void append(SlideItem anItem) {
-		items.add(anItem);
+	/**
+	 * Adds a SlideItem to the slide
+	 * @param slideItem the SlideItem to add to the slide
+	 */
+	public void append(SlideItem slideItem) {
+		items.add(slideItem);
 	}
 
-	//Return the title of a slide
-	public String getTitle() {
-		return title;
+	/**
+	 * Adds a TextItem to the slide, based of off the level and message
+	 * @param styleType The StyleType the text will get
+	 * @param text The text inside the TextItem
+	 */
+	public void append(StyleType styleType, String text) {
+		append(new TextItem(styleType, text));
 	}
 
-	//Change the title of a slide
-	public void setTitle(String newTitle) {
-		title = newTitle;
-	}
-
-	//Create a TextItem out of a String and add the TextItem
-	public void append(StyleType level, String message) {
-		append(new TextItem(level, message));
-	}
-
-	//Returns the SlideItem
-	public SlideItem getSlideItem(int number) {
-		return (SlideItem)items.get(number);
-	}
-
-	//Return all the SlideItems in a ArrayList
-	public ArrayList<SlideItem> getSlideItems() {
-		return items;
-	}
-
-	//Returns the size of a slide
-	public int getSize() {
-		return items.size();
-	}
-
-	//Draws the slide
-	public void draw(Graphics g, Rectangle area, ImageObserver view) {
-		float scale = getScale(area);
+	/**
+	 * Draws the slide with the slideItems to the screen.
+	 * @param graphics the Graphics object to draw to
+	 * @param area the area to draw inside of
+	 */
+	public void draw(Graphics graphics, Rectangle area) {
+		float scale = calculateScale(area);
 	    int y = area.y;
-	//The title is treated separately
+
 	    SlideItem slideItem = new TextItem(StyleType.H1, getTitle());
 	    Style style = StyleFactory.getStyle(slideItem.getLevel());
-	    slideItem.draw(area.x, y, scale, g, style, view);
-	    y += slideItem.getBoundingBox(g, view, scale, style).height;
-	    for (int number=0; number<getSize(); number++) {
-	      slideItem = (SlideItem)getSlideItems().get(number);
+	    slideItem.draw(area.x, y, scale, graphics, style);
+	    y += slideItem.getBoundingBox(graphics, scale, style).height;
+
+	    for (int number = 0; number< getSlideCount(); number++) {
+	      slideItem = getSlideItems(number);
 	      style = StyleFactory.getStyle(slideItem.getLevel());
-	      slideItem.draw(area.x, y, scale, g, style, view);
-	      y += slideItem.getBoundingBox(g, view, scale, style).height;
+	      slideItem.draw(area.x, y, scale, graphics, style);
+	      y += slideItem.getBoundingBox(graphics, scale, style).height;
 	    }
 	  }
 
-	//Returns the scale to draw a slide
-	private float getScale(Rectangle area) {
+	/**
+	 * Calculates the scalar to scale the page content to the window size
+	 * @param area Rectangle with the container size
+	 * @return scalar to scale components
+	 */
+	private float calculateScale(Rectangle area) {
 		return Math.min(((float)area.width) / ((float)SlideViewerFrame.WIDTH), ((float)area.height) / ((float)SlideViewerFrame.HEIGHT));
+	}
+
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(String newTitle) {
+		this.title = newTitle;
+	}
+
+	public SlideItem getSlideItems(int slideIndex){
+		return this.items.get(slideIndex);
+	}
+
+	public int getSlideCount() {
+		return items.size();
 	}
 }

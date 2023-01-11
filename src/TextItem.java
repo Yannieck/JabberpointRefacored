@@ -7,7 +7,6 @@ import java.awt.font.TextAttribute;
 import java.awt.font.LineBreakMeasurer;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.ImageObserver;
 import java.text.AttributedString;
 import java.util.List;
 import java.util.Iterator;
@@ -53,7 +52,7 @@ public class TextItem extends SlideItem {
 	}
 
 //Returns the bounding box of an Item
-	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
+	public Rectangle getBoundingBox(Graphics g,
 			float scale, Style myStyle) {
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
 		int xsize = 0, ysize = (int) (myStyle.getLeading() * scale);
@@ -74,7 +73,7 @@ public class TextItem extends SlideItem {
 
 //Draws the item
 	public void draw(int x, int y, float scale, Graphics g, 
-			Style myStyle, ImageObserver o) {
+			Style myStyle) {
 		if (text == null || text.length() == 0) {
 			return;
 		}
