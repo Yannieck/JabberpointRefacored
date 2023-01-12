@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 /**
  * <p>Presentations keeps track of the slides in a presentation.</p>
  * <p>Only one instance of this class is available.</p>
@@ -14,89 +13,66 @@ import java.util.ArrayList;
  */
 
 public class Presentation {
-	private String showTitle; //The title of the presentation
-	private ArrayList<Slide> showList = null; //An ArrayList with slides
-	private int currentSlideNumber = 0; //The number of the current slide
-	private SlideViewerComponent slideViewComponent = null; //The view component of the slides
+	private String title; //The title of the presentation
+	private ArrayList<Slide> showList; //An ArrayList with slides
+	private SlideViewerComponent slideViewComponent; //The view component of the slides
 
 	public Presentation() {
-		slideViewComponent = null;
-		clear();
+		this.showList = new ArrayList<>();
+		this.setActiveSlide(0);
 	}
 
-	public Presentation(SlideViewerComponent slideViewerComponent) {
-		this.slideViewComponent = slideViewerComponent;
-		clear();
-	}
-
-	public int getSize() {
-		return showList.size();
-	}
-
-	public String getTitle() {
-		return showTitle;
-	}
-
-	public void setTitle(String nt) {
-		showTitle = nt;
-	}
-
-	public void setShowView(SlideViewerComponent slideViewerComponent) {
+	/**
+	 * Add a slideViewerComponent to the presentation
+	 * @param slideViewerComponent slideViewerComponent
+	 */
+	public void setSlideViewerComponent(SlideViewerComponent slideViewerComponent) {
 		this.slideViewComponent = slideViewerComponent;
 	}
 
-	//Returns the number of the current slide
-	public int getSlideNumber() {
-		return currentSlideNumber;
-	}
-
-	//Change the current slide number and report it the the window
-	public void setSlideNumber(int number) {
-		currentSlideNumber = number;
+	/**
+	 * Set the currently active slide by page number
+	 * @param number page number
+	 */
+	public void setActiveSlide(int number) {
 		if (slideViewComponent != null) {
-			slideViewComponent.update(getCurrentSlide(), this.currentSlideNumber, getSize());
+			slideViewComponent.update(getSlide(number), number, getSlideCount());
 		}
 	}
 
-	//Navigate to the previous slide unless we are at the first slide
-	public void prevSlide() {
-		if (currentSlideNumber > 0) {
-			setSlideNumber(currentSlideNumber - 1);
-	    }
+	/**
+	 * Clear the slides in the presentation
+	 */
+	public void clearSlides() {
+		showList = new ArrayList<>();
 	}
 
-	//Navigate to the next slide unless we are at the last slide
-	public void nextSlide() {
-		if (currentSlideNumber < (showList.size()-1)) {
-			setSlideNumber(currentSlideNumber + 1);
-		}
-	}
-
-	//Remove the presentation
-	void clear() {
-		showList = new ArrayList<Slide>();
-		setSlideNumber(-1);
-	}
-
-	//Add a slide to the presentation
+	/**
+	 * Add a slide to the presentation
+	 * @param slide slide to add
+	 */
 	public void append(Slide slide) {
 		showList.add(slide);
 	}
 
-	//Return a slide with a specific number
+	/**
+	 * Get a slide with a specific number
+	 * @param number Page number of the slide
+	 * @return Slide object
+	 */
 	public Slide getSlide(int number) {
-		if (number < 0 || number >= getSize()){
-			return null;
-	    }
-			return (Slide)showList.get(number);
+		return showList.get(number);
 	}
 
-	//Return the current slide
-	public Slide getCurrentSlide() {
-		return getSlide(currentSlideNumber);
+	public int getSlideCount() {
+		return showList.size();
 	}
 
-	public void exit(int n) {
-		System.exit(n);
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

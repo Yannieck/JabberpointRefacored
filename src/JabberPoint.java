@@ -30,7 +30,6 @@ public class JabberPoint {
                 new XMLAccessor().loadFile(presentation, argv[0]);
             }
             new SlideViewerFrame(presentation);
-            presentation.setSlideNumber(0);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null,
                     IOERR + ex, JABERR,
