@@ -18,46 +18,53 @@ import java.io.IOException;
 
 public class BitmapItem extends SlideItem {
     private BufferedImage bufferedImage;
-    private String imageName;
+    private final String imageName;
 
-    protected static final String FILE = "File ";
-    protected static final String NOTFOUND = " not found";
-
-
-    //level indicates the item-level; name indicates the name of the file with the image
-    public BitmapItem(StyleType level, String name) {
-        super(level);
-        imageName = name;
+    /**
+     * Image component for a slide
+     * @param styleType Style of the bitmap item
+     * @param name Name of the to be loaded image
+     */
+    public BitmapItem(StyleType styleType, String name) {
+        super(styleType);
+        this.imageName = name;
         try {
             bufferedImage = ImageIO.read(new File(imageName));
         } catch (IOException e) {
-            System.err.println(FILE + imageName + NOTFOUND);
+            System.err.println("File " + imageName + " not found");
         }
     }
 
-    //An empty bitmap item
-    public BitmapItem() {
-        this(StyleType.H1, null);
-    }
-
-    //Returns the filename of the image
-    public String getName() {
-        return imageName;
-    }
-
-    //Returns the bounding box of the image
+    /**
+     * Get the bounding box of the image
+     * @param g The Graphics object to draw to
+     * @param scale Scalar
+     * @return Bounding box of the image
+     */
     public Rectangle getBoundingBox(Graphics g, float scale) {
-        return new Rectangle((int) (this.getStyle().getIndent() * scale), 0,
-                (int) (bufferedImage.getWidth() * scale),
-                ((int) (this.getStyle().getLeading() * scale)) +
-                        (int) (bufferedImage.getHeight() * scale));
+        return new Rectangle(
+            (int) (this.getStyle().getIndent() * scale),
+            0,
+            (int) (bufferedImage.getWidth() * scale),
+            ((int) (this.getStyle().getLeading() * scale)) + (int) (bufferedImage.getHeight() * scale)
+        );
     }
 
-    //Draws the image
+    /**
+     * Draws the image to the screen
+     * @param x Draw origin x
+     * @param y Draw origin y
+     * @param scale Scalar
+     * @param g The Graphics object to draw to
+     */
     public void draw(int x, int y, float scale, Graphics g) {
         int width = x + (int) (this.getStyle().getIndent() * scale);
         int height = y + (int) (this.getStyle().getLeading() * scale);
         g.drawImage(bufferedImage, width, height, (int) (bufferedImage.getWidth() * scale),
-                (int) (bufferedImage.getHeight() * scale), null);
+            (int) (bufferedImage.getHeight() * scale), null);
+    }
+
+    public String getName() {
+        return imageName;
     }
 }

@@ -21,18 +21,18 @@ public abstract class SlideItem {
 
 	/**
 	 * Get the bounding box
-	 * @param graphics the Graphics object to draw to
-	 * @param scale scalar
-	 * @return rectangle with the position and size of the bounding box
+	 * @param graphics The Graphics object to draw to
+	 * @param scale Scalar
+	 * @return Rectangle with the position and size of the bounding box
 	 */
 	public abstract Rectangle getBoundingBox(Graphics graphics, float scale);
 
 	/**
 	 * Draw the SlideItem to the screen
-	 * @param x draw origin x
-	 * @param y draw origin y
-	 * @param scale scalar
-	 * @param graphics the Graphics object to draw to
+	 * @param x Draw origin x
+	 * @param y Draw origin y
+	 * @param scale Scalar
+	 * @param graphics The Graphics object to draw to
 	 */
 	public abstract void draw(int x, int y, float scale,
 			Graphics graphics);
