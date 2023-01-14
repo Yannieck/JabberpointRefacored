@@ -50,7 +50,7 @@ public class MenuController extends MenuBar {
         fileMenu.add(menuItem = mkMenuItem(OPEN));
         menuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                Accessor xmlAccessor = new XMLAccessor();
+                XMLAccessor xmlAccessor = new XMLAccessor();
                 try {
                     xmlAccessor.loadFile(presentation, TESTFILE);
                     presentationController.resetCurrentSlide();
@@ -73,7 +73,7 @@ public class MenuController extends MenuBar {
         fileMenu.add(menuItem = mkMenuItem(SAVE));
         menuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Accessor xmlAccessor = new XMLAccessor();
+                XMLAccessor xmlAccessor = new XMLAccessor();
                 try {
                     xmlAccessor.saveFile(presentation, SAVEFILE);
                 } catch (IOException exc) {
