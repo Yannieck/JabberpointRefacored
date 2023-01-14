@@ -25,94 +25,93 @@ import org.w3c.dom.NodeList;
  */
 
 public class XMLAccessor {
-	
-    /** Default API to use. */
-    protected static final String DEFAULT_API_TO_USE = "dom";
-    
-    /** Names of xml tags of attributes */
-    protected static final String SHOWTITLE = "showtitle";
-    protected static final String SLIDETITLE = "title";
-    protected static final String SLIDE = "slide";
-    protected static final String ITEM = "item";
-    protected static final String LEVEL = "level";
-    protected static final String KIND = "kind";
-    protected static final String TEXT = "text";
-    protected static final String IMAGE = "image";
-    
-    /** Text of messages */
-    protected static final String PCE = "Parser Configuration Exception";
-    protected static final String UNKNOWNTYPE = "Unknown Element type";
-    protected static final String NFE = "Number Format Exception";
-    
-    
-    private String getTitle(Element element, String tagName) {
+
+	/**
+	 * Gets the value of the tag from an element
+	 * @param element Element to look through
+	 * @param tagName name of the tag to search for
+	 * @return String with the value of the tag
+	 */
+    private String getElementText(Element element, String tagName) {
     	NodeList titles = element.getElementsByTagName(tagName);
     	return titles.item(0).getTextContent();
-    	
     }
 
+	/**
+	 * Loads an XML file to the presentation
+	 * @param presentation The presentation to load to
+	 * @param filename The path of the file to upload
+	 * @throws IOException Throws when loading file failed
+	 */
 	public void loadFile(Presentation presentation, String filename) throws IOException {
-		int slideNumber, itemNumber, max = 0, maxItems = 0;
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
-			Document document = builder.parse(new File(filename)); //Create a JDOM document
+			Document document = builder.parse(new File(filename));
 			Element doc = document.getDocumentElement();
-			presentation.setTitle(getTitle(doc, SHOWTITLE));
+			presentation.setTitle(getElementText(doc, "showtitle"));
 			presentation.clearSlides();
 
-			NodeList slides = doc.getElementsByTagName(SLIDE);
-			max = slides.getLength();
-			for (slideNumber = 0; slideNumber < max; slideNumber++) {
+			NodeList slides = doc.getElementsByTagName("slide");
+
+			for (int slideNumber = 0; slideNumber < slides.getLength(); slideNumber++) {
 				Element xmlSlide = (Element) slides.item(slideNumber);
+
 				Slide slide = new Slide();
-				slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
+				slide.setTitle(getElementText(xmlSlide, "title"));
 				presentation.append(slide);
 				
-				NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
-				maxItems = slideItems.getLength();
-				for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
+				NodeList slideItems = xmlSlide.getElementsByTagName("item");
+
+				for (int itemNumber = 0; itemNumber < slideItems.getLength(); itemNumber++) {
 					Element item = (Element) slideItems.item(itemNumber);
 					loadSlideItem(slide, item);
 				}
 			}
 		} 
-		catch (IOException iox) {
-			System.err.println(iox.toString());
-		}
-		catch (SAXException sax) {
-			System.err.println(sax.getMessage());
-		}
-		catch (ParserConfigurationException pcx) {
-			System.err.println(PCE);
+		catch (IOException | SAXException iox) {
+			System.err.println(iox.getMessage());
+		} catch (ParserConfigurationException pcx) {
+			System.err.println("Parser Configuration Exception");
 		}	
 	}
 
+	/**
+	 * Loads a slide item to a slide
+	 * @param slide The slide to load to
+	 * @param item The item to load to the slide
+	 */
 	protected void loadSlideItem(Slide slide, Element item) {
-		int level = 1; // default
+		int level = 1;
 		NamedNodeMap attributes = item.getAttributes();
-		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
+		String leveltext = attributes.getNamedItem("level").getTextContent();
 		if (leveltext != null) {
 			try {
 				level = Integer.parseInt(leveltext);
 			}
 			catch(NumberFormatException x) {
-				System.err.println(NFE);
+				System.err.println("Number Format Exception");
 			}
 		}
-		String type = attributes.getNamedItem(KIND).getTextContent();
-		if (TEXT.equals(type)) {
+		String type = attributes.getNamedItem("kind").getTextContent();
+		if ("text".equals(type)) {
 			slide.append(new TextItem(StyleType.values()[level], item.getTextContent()));
 		}
 		else {
-			if (IMAGE.equals(type)) {
+			if ("image".equals(type)) {
 				slide.append(new BitmapItem(StyleType.values()[level], item.getTextContent()));
 			}
 			else {
-				System.err.println(UNKNOWNTYPE);
+				System.err.println("Unknown Element type");
 			}
 		}
 	}
 
+	/**
+	 * Save a file to the given file path
+	 * @param presentation The presentation to save
+	 * @param filename The path to save to
+	 * @throws IOException Throws when writing file failed
+	 */
 	public void saveFile(Presentation presentation, String filename) throws IOException {
 		PrintWriter out = new PrintWriter(new FileWriter(filename));
 		out.println("<?xml version=\"1.0\"?>");
