@@ -1,5 +1,5 @@
 public class PresentationController {
-    private Presentation presentation;
+    private final Presentation presentation;
     private int currentSlideNumber = 0;
 
     public PresentationController(Presentation presentation) {
@@ -32,6 +32,9 @@ public class PresentationController {
         }
     }
 
+    /**
+     * Reset the presentation to the first page
+     */
     public void resetCurrentSlide() {
         this.currentSlideNumber = 0;
         goToSlide(this.currentSlideNumber);

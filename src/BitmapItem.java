@@ -29,9 +29,9 @@ public class BitmapItem extends SlideItem {
         super(styleType);
         this.imageName = name;
         try {
-            bufferedImage = ImageIO.read(new File(imageName));
+            this.bufferedImage = ImageIO.read(new File(this.imageName));
         } catch (IOException e) {
-            System.err.println("File " + imageName + " not found");
+            System.err.println("File " + this.imageName + " not found");
         }
     }
 
@@ -45,8 +45,8 @@ public class BitmapItem extends SlideItem {
         return new Rectangle(
             (int) (this.getStyle().getIndent() * scale),
             0,
-            (int) (bufferedImage.getWidth() * scale),
-            ((int) (this.getStyle().getLeading() * scale)) + (int) (bufferedImage.getHeight() * scale)
+            (int) (this.bufferedImage.getWidth() * scale),
+            ((int) (this.getStyle().getLeading() * scale)) + (int) (this.bufferedImage.getHeight() * scale)
         );
     }
 
@@ -60,11 +60,11 @@ public class BitmapItem extends SlideItem {
     public void draw(int x, int y, float scale, Graphics g) {
         int width = x + (int) (this.getStyle().getIndent() * scale);
         int height = y + (int) (this.getStyle().getLeading() * scale);
-        g.drawImage(bufferedImage, width, height, (int) (bufferedImage.getWidth() * scale),
-            (int) (bufferedImage.getHeight() * scale), null);
+        g.drawImage(this.bufferedImage, width, height, (int) (this.bufferedImage.getWidth() * scale),
+            (int) (this.bufferedImage.getHeight() * scale), null);
     }
 
     public String getName() {
-        return imageName;
+        return this.imageName;
     }
 }

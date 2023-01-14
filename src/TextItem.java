@@ -24,41 +24,43 @@ import java.util.ArrayList;
  */
 
 public class TextItem extends SlideItem {
-	private String text;
-	
-	private static final String EMPTYTEXT = "No Text Given";
+	private final String text;
 
-//A textitem of int level with text string
-	public TextItem(StyleType level, String string) {
-		super(level);
-		text = string;
+	/**
+	 * Image component for a slide
+	 * @param styleType Style of the bitmap item
+	 * @param string The text to show on the page
+	 */
+	public TextItem(StyleType styleType, String string) {
+		super(styleType);
+		this.text = string;
 	}
 
-//An empty textitem
-	public TextItem() {
-		this(StyleType.P, EMPTYTEXT);
-	}
-
-//Returns the text
-	public String getText() {
-		return text == null ? "" : text;
-	}
-
-//Returns the AttributedString for the Item
+	/**
+	 * Creates an AttributedString with style attributes from the text
+	 * @param style Style of the text
+	 * @param scale Scale of the text
+	 * @return AttributedString with styles
+	 */
 	public AttributedString getAttributedString(Style style, float scale) {
-		AttributedString attrStr = new AttributedString(getText());
-		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
+		AttributedString attrStr = new AttributedString(this.text);
+		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, this.text.length());
 		return attrStr;
 	}
 
 //Returns the bounding box of an Item
+
+	/**
+	 * Get the bounding box of the text
+	 * @param g The Graphics object to draw to
+	 * @param scale Scalar
+	 * @return Bounding box of the text
+	 */
 	public Rectangle getBoundingBox(Graphics g,
 			float scale) {
 		List<TextLayout> layouts = getLayouts(g, this.getStyle(), scale);
 		int xsize = 0, ysize = (int) (this.getStyle().getLeading() * scale);
-		Iterator<TextLayout> iterator = layouts.iterator();
-		while (iterator.hasNext()) {
-			TextLayout layout = iterator.next();
+		for (TextLayout layout : layouts) {
 			Rectangle2D bounds = layout.getBounds();
 			if (bounds.getWidth() > xsize) {
 				xsize = (int) bounds.getWidth();
@@ -71,9 +73,15 @@ public class TextItem extends SlideItem {
 		return new Rectangle((int) (this.getStyle().getIndent() *scale), 0, xsize, ysize );
 	}
 
-//Draws the item
+	/**
+	 * Draws the text to the screen
+	 * @param x Draw origin x
+	 * @param y Draw origin y
+	 * @param scale Scalar
+	 * @param g The Graphics object to draw to
+	 */
 	public void draw(int x, int y, float scale, Graphics g) {
-		if (text == null || text.length() == 0) {
+		if (this.text == null || this.text.length() == 0) {
 			return;
 		}
 		List<TextLayout> layouts = getLayouts(g, this.getStyle(), scale);
@@ -81,26 +89,35 @@ public class TextItem extends SlideItem {
 				y + (int) (this.getStyle().getLeading() * scale));
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(this.getStyle().getColor());
-		Iterator<TextLayout> it = layouts.iterator();
-		while (it.hasNext()) {
-			TextLayout layout = it.next();
+		for (TextLayout layout : layouts) {
 			pen.y += layout.getAscent();
 			layout.draw(g2d, pen.x, pen.y);
 			pen.y += layout.getDescent();
 		}
 	  }
 
-	private List<TextLayout> getLayouts(Graphics g, Style s, float scale) {
-		List<TextLayout> layouts = new ArrayList<TextLayout>();
-		AttributedString attrStr = getAttributedString(s, scale);
-    	Graphics2D g2d = (Graphics2D) g;
+	/**
+	 * Generate the layouts for the textObject
+	 * @param graphics Graphics component to draw to
+	 * @param style Style of the text
+	 * @param scale Scale of the text
+	 * @return List of TextLayouts
+	 */
+	private List<TextLayout> getLayouts(Graphics graphics, Style style, float scale) {
+		List<TextLayout> layouts = new ArrayList<>();
+		AttributedString attrStr = getAttributedString(style, scale);
+    	Graphics2D g2d = (Graphics2D) graphics;
     	FontRenderContext frc = g2d.getFontRenderContext();
     	LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
-    	float wrappingWidth = (SlideViewerFrame.WIDTH - s.getIndent()) * scale;
-    	while (measurer.getPosition() < getText().length()) {
+    	float wrappingWidth = (SlideViewerFrame.WIDTH - style.getIndent()) * scale;
+    	while (measurer.getPosition() < this.text.length()) {
     		TextLayout layout = measurer.nextLayout(wrappingWidth);
     		layouts.add(layout);
     	}
     	return layouts;
+	}
+
+	public String getText() {
+		return this.text;
 	}
 }
