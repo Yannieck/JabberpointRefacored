@@ -42,7 +42,7 @@ public class TextItem extends SlideItem {
 	 * @param scale Scale of the text
 	 * @return AttributedString with styles
 	 */
-	public AttributedString getAttributedString(Style style, float scale) {
+	private AttributedString getAttributedString(Style style, float scale) {
 		AttributedString attrStr = new AttributedString(this.text);
 		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, this.text.length());
 		return attrStr;
