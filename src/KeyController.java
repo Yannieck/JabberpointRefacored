@@ -15,6 +15,10 @@ public class KeyController extends KeyAdapter {
         this.presentationController = presentationController;
     }
 
+    /**
+     * Add functionalities to the key presses
+     * @param keyEvent the event to be processed
+     */
     public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_PAGE_DOWN, KeyEvent.VK_DOWN, KeyEvent.VK_ENTER, '+' -> presentationController.nextSlide();

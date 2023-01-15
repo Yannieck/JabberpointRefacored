@@ -1,6 +1,7 @@
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
+import java.io.Serial;
 import javax.swing.JFrame;
 
 /**
@@ -15,21 +16,29 @@ import javax.swing.JFrame;
 */
 
 public class SlideViewerFrame extends JFrame {
+	@Serial
 	private static final long serialVersionUID = 3227L;
-
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
-	
+
+	/**
+	 * Instantiate a new window
+	 * @param presentation the presentation to display
+	 */
 	public SlideViewerFrame(Presentation presentation) {
 		super(presentation.getTitle());
 		SlideViewerComponent slideViewerComponent = new SlideViewerComponent();
 		presentation.setSlideViewerComponent(slideViewerComponent);
+
 		setupWindow(slideViewerComponent, presentation);
 	}
 
-//Setup the GUI
-	public void setupWindow(SlideViewerComponent 
-			slideViewerComponent, Presentation presentation) {
+	/**
+	 * Sets up the GUI
+	 * @param slideViewerComponent main component to add to the frame
+	 * @param presentation the presentation to display
+	 */
+	public void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation) {
 		PresentationController presentationController = new PresentationController(presentation);
 		addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) {
@@ -37,9 +46,9 @@ public class SlideViewerFrame extends JFrame {
 				}
 			});
 		getContentPane().add(slideViewerComponent);
-		addKeyListener(new KeyController(presentationController)); //Add a controller
-		setMenuBar(new MenuController(this, presentation, presentationController));	//Add another controller
-		setSize(new Dimension(WIDTH, HEIGHT)); //Same sizes a slide has
+		addKeyListener(new KeyController(presentationController));
+		setMenuBar(new MenuController(this, presentation, presentationController));
+		setSize(new Dimension(WIDTH, HEIGHT));
 		setVisible(true);
 	}
 }
