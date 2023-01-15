@@ -32,7 +32,7 @@ public class XMLAccessor {
 	 * @param tagName name of the tag to search for
 	 * @return String with the value of the tag
 	 */
-    private String getElementText(Element element, String tagName) {
+    private static String getElementText(Element element, String tagName) {
     	NodeList titles = element.getElementsByTagName(tagName);
     	return titles.item(0).getTextContent();
     }
@@ -43,7 +43,7 @@ public class XMLAccessor {
 	 * @param filename The path of the file to upload
 	 * @throws IOException Throws when loading file failed
 	 */
-	public void loadFile(Presentation presentation, String filename) throws IOException {
+	public static void loadFile(Presentation presentation, String filename) throws IOException {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
 			Document document = builder.parse(new File(filename));
@@ -53,20 +53,7 @@ public class XMLAccessor {
 
 			NodeList slides = doc.getElementsByTagName("slide");
 
-			for (int slideNumber = 0; slideNumber < slides.getLength(); slideNumber++) {
-				Element xmlSlide = (Element) slides.item(slideNumber);
-
-				Slide slide = new Slide();
-				slide.setTitle(getElementText(xmlSlide, "title"));
-				presentation.append(slide);
-				
-				NodeList slideItems = xmlSlide.getElementsByTagName("item");
-
-				for (int itemNumber = 0; itemNumber < slideItems.getLength(); itemNumber++) {
-					Element item = (Element) slideItems.item(itemNumber);
-					loadSlideItem(slide, item);
-				}
-			}
+			loadSlides(presentation, slides);
 		} 
 		catch (IOException | SAXException iox) {
 			System.err.println(iox.getMessage());
@@ -75,12 +62,29 @@ public class XMLAccessor {
 		}	
 	}
 
+	private static void loadSlides(Presentation presentation, NodeList slides) {
+		for (int slideNumber = 0; slideNumber < slides.getLength(); slideNumber++) {
+			Element xmlSlide = (Element) slides.item(slideNumber);
+
+			Slide slide = new Slide();
+			slide.setTitle(getElementText(xmlSlide, "title"));
+			presentation.append(slide);
+
+			NodeList slideItems = xmlSlide.getElementsByTagName("item");
+
+			for (int itemNumber = 0; itemNumber < slideItems.getLength(); itemNumber++) {
+				Element item = (Element) slideItems.item(itemNumber);
+				loadSlideItem(slide, item);
+			}
+		}
+	}
+
 	/**
 	 * Loads a slide item to a slide
 	 * @param slide The slide to load to
 	 * @param item The item to load to the slide
 	 */
-	protected void loadSlideItem(Slide slide, Element item) {
+	private static void loadSlideItem(Slide slide, Element item) {
 		int level = 1;
 		NamedNodeMap attributes = item.getAttributes();
 		String leveltext = attributes.getNamedItem("level").getTextContent();
@@ -112,7 +116,7 @@ public class XMLAccessor {
 	 * @param filename The path to save to
 	 * @throws IOException Throws when writing file failed
 	 */
-	public void saveFile(Presentation presentation, String filename) throws IOException {
+	public static void saveFile(Presentation presentation, String filename) throws IOException {
 		PrintWriter out = new PrintWriter(new FileWriter(filename));
 		out.println("<?xml version=\"1.0\"?>");
 		out.println("<!DOCTYPE presentation SYSTEM \"jabberpoint.dtd\">");
