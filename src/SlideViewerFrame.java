@@ -38,7 +38,7 @@ public class SlideViewerFrame extends JFrame {
 	 * @param slideViewerComponent main component to add to the frame
 	 * @param presentation the presentation to display
 	 */
-	public void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation) {
+	private void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation) {
 		PresentationController presentationController = new PresentationController(presentation);
 		addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) {
