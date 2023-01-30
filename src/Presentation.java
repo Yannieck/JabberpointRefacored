@@ -45,6 +45,8 @@ public class Presentation {
 	 */
 	public void clearSlides() {
 		showList = new ArrayList<>();
+		showList.add(new Slide(""));
+		this.setActiveSlide(0);
 	}
 
 	/**

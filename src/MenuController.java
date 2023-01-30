@@ -66,7 +66,7 @@ public class MenuController extends MenuBar {
 
         menuItem.addActionListener(actionEvent -> {
             try {
-                XMLAccessor.loadFile(this.presentation, TESTFILE);
+                new XMLAccessor().loadFile(this.presentation, TESTFILE);
                 this.presentationController.resetCurrentSlide();
                 this.parentFrame.setTitle(this.presentation.getTitle());
             } catch (IOException exc) {
@@ -83,7 +83,6 @@ public class MenuController extends MenuBar {
         MenuItem menuItem = mkMenuItem("New");
 
         menuItem.addActionListener(actionEvent -> {
-            this.presentationController.resetCurrentSlide();
             this.presentation.clearSlides();
             this.parentFrame.repaint();
         });
@@ -96,7 +95,7 @@ public class MenuController extends MenuBar {
 
         menuItem.addActionListener(actionEvent -> {
             try {
-                XMLAccessor.saveFile(presentation, SAVEFILE);
+                new XMLAccessor().saveFile(presentation, SAVEFILE);
             } catch (IOException exc) {
                 JOptionPane.showMessageDialog(parentFrame, "IO Exception: " + exc,
                         "Save Error", JOptionPane.ERROR_MESSAGE);

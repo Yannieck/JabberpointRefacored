@@ -22,9 +22,9 @@ public class JabberPoint {
         Presentation presentation = new Presentation();
         try {
             if (argv.length == 0) {
-                XMLAccessor.loadFile(presentation, System.getProperty("user.dir") + "/demoPresentation.xml");
+                DemoPresentation.loadFile(presentation);
             } else {
-                XMLAccessor.loadFile(presentation, argv[0]);
+                new XMLAccessor().loadFile(presentation, argv[0]);
             }
             new SlideViewerFrame(presentation);
         } catch (IOException ex) {

@@ -15,8 +15,9 @@ public class Slide {
 	private String title; //The title is kept separately
 	private ArrayList<SlideItem> slideItems; //The SlideItems are kept in a ArrayList
 
-	public Slide() {
+	public  Slide(String title) {
 		slideItems = new ArrayList<SlideItem>();
+		this.title = title;
 	}
 
 	/**
@@ -45,7 +46,7 @@ public class Slide {
 		float scale = calculateScale(area.width, area.height);
 		Point drawOrigin = new Point(area.x, area.y);
 
-		SlideItem titleItem = new TextItem(StyleType.H1, this.title);
+		TextItem titleItem = new TextItem(StyleType.H1, this.title);
 		titleItem.draw(drawOrigin.x, drawOrigin.y, scale, graphics);
 		drawOrigin.y += titleItem.getBoundingBox(graphics, scale).height;
 
