@@ -1,3 +1,5 @@
+package Jabberpoint.Accessor;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,6 +9,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import Jabberpoint.Presentation.Presentation;
+import Jabberpoint.Slide.BitmapItem;
+import Jabberpoint.Slide.Slide;
+import Jabberpoint.Slide.SlideItem;
+import Jabberpoint.Slide.TextItem;
+import Jabberpoint.Styles.StyleType;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,7 +22,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
 
-/** XMLAccessor, reads and writes XML files
+/** Jabberpoint.Accessor.XMLAccessor, reads and writes XML files
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman

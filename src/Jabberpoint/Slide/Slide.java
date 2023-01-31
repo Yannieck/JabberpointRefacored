@@ -1,3 +1,8 @@
+package Jabberpoint.Slide;
+
+import Jabberpoint.UI.SlideViewerFrame;
+import Jabberpoint.Styles.StyleType;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -21,17 +26,17 @@ public class Slide {
 	}
 
 	/**
-	 * Adds a SlideItem to the slide
-	 * @param slideItem the SlideItem to add to the slide
+	 * Adds a Jabberpoint.Slide.SlideItem to the slide
+	 * @param slideItem the Jabberpoint.Slide.SlideItem to add to the slide
 	 */
 	public void append(SlideItem slideItem) {
 		slideItems.add(slideItem);
 	}
 
 	/**
-	 * Adds a TextItem to the slide, based of off the level and message
-	 * @param styleType The StyleType the text will get
-	 * @param text The text inside the TextItem
+	 * Adds a Jabberpoint.Slide.TextItem to the slide, based of off the level and message
+	 * @param styleType The Jabberpoint.Styles.StyleType the text will get
+	 * @param text The text inside the Jabberpoint.Slide.TextItem
 	 */
 	public void append(StyleType styleType, String text) {
 		append(new TextItem(styleType, text));
@@ -63,7 +68,7 @@ public class Slide {
 	 * @return scalar to scale components
 	 */
 	private float calculateScale(float width, float height) {
-		return Math.min(width / ((float)SlideViewerFrame.WIDTH), height / ((float)SlideViewerFrame.HEIGHT));
+		return Math.min(width / ((float) SlideViewerFrame.WIDTH), height / ((float)SlideViewerFrame.HEIGHT));
 	}
 
 	public String getTitle() {

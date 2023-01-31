@@ -1,3 +1,8 @@
+package Jabberpoint.UI;
+
+import Jabberpoint.Presentation.Presentation;
+import Jabberpoint.Presentation.PresentationController;
+
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;

@@ -1,3 +1,8 @@
+package Jabberpoint.UI;
+
+import Jabberpoint.Slide.Slide;
+import Jabberpoint.UI.SlideViewerFrame;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
@@ -5,10 +10,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.Serial;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 
 
-/** <p>SlideViewerComponent is a graphical component that ca display Slides.</p>
+/** <p>Jabberpoint.UI.SlideViewerComponent is a graphical component that ca display Slides.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -84,7 +88,7 @@ public class SlideViewerComponent extends JComponent {
 		graphics.setFont(font);
 
 		graphics.setColor(COLOR);
-		graphics.drawString("Slide " + (1 + this.currentPage + " of " + this.pageCount), XPOS, YPOS);
+		graphics.drawString("Jabberpoint.Slide.Slide " + (1 + this.currentPage + " of " + this.pageCount), XPOS, YPOS);
 		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
 		slide.draw(graphics, area);
 	}

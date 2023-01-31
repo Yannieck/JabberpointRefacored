@@ -1,3 +1,9 @@
+package Jabberpoint.Slide;
+
+import Jabberpoint.UI.SlideViewerFrame;
+import Jabberpoint.Styles.Style;
+import Jabberpoint.Styles.StyleType;
+
 import java.awt.Rectangle;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,7 +15,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.text.AttributedString;
 import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
 
 /** <p>A text item.</p>

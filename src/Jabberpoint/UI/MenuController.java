@@ -1,9 +1,14 @@
+package Jabberpoint.UI;
+
+import Jabberpoint.Accessor.XMLAccessor;
+import Jabberpoint.Presentation.Presentation;
+import Jabberpoint.Presentation.PresentationController;
+
 import java.awt.MenuBar;
 import java.awt.Frame;
 import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.Serial;
 

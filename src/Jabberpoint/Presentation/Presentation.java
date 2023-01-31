@@ -1,3 +1,8 @@
+package Jabberpoint.Presentation;
+
+import Jabberpoint.Slide.Slide;
+import Jabberpoint.UI.SlideViewerComponent;
+
 import java.util.ArrayList;
 
 /**

@@ -1,3 +1,5 @@
+package Jabberpoint.Styles;
+
 public enum StyleType {
     H1,
     H2,

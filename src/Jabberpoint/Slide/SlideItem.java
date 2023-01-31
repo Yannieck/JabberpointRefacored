@@ -1,3 +1,9 @@
+package Jabberpoint.Slide;
+
+import Jabberpoint.Styles.Style;
+import Jabberpoint.Styles.StyleFactory;
+import Jabberpoint.Styles.StyleType;
+
 import java.awt.Rectangle;
 import java.awt.Graphics;
 

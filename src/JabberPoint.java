@@ -1,3 +1,8 @@
+import Jabberpoint.Accessor.XMLAccessor;
+import Jabberpoint.Accessor.DemoPresentation;
+import Jabberpoint.Presentation.Presentation;
+import Jabberpoint.UI.SlideViewerFrame;
+
 import javax.swing.JOptionPane;
 
 import java.io.IOException;

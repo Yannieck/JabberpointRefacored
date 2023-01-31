@@ -1,3 +1,10 @@
+package Jabberpoint.Accessor;
+
+import Jabberpoint.Slide.BitmapItem;
+import Jabberpoint.Presentation.Presentation;
+import Jabberpoint.Slide.Slide;
+import Jabberpoint.Styles.StyleType;
+
 /** A built-in demo presentation
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -8,10 +15,10 @@
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-class DemoPresentation {
+public class DemoPresentation {
 
 	public static void loadFile(Presentation presentation) {
-		presentation.setTitle("Demo Presentation");
+		presentation.setTitle("Demo Jabberpoint.Presentation.Presentation");
 		Slide slide;
 		slide = new Slide("JabberPoint");
 		slide.append(StyleType.H2, "The Java prestentation tool");

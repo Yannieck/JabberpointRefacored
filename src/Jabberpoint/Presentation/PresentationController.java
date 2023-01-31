@@ -1,3 +1,5 @@
+package Jabberpoint.Presentation;
+
 public class PresentationController {
     private final Presentation presentation;
     private int currentSlideNumber = 0;
