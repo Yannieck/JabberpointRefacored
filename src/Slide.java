@@ -15,7 +15,7 @@ public class Slide {
 	private String title; //The title is kept separately
 	private ArrayList<SlideItem> slideItems; //The SlideItems are kept in a ArrayList
 
-	public  Slide(String title) {
+	public Slide(String title) {
 		slideItems = new ArrayList<SlideItem>();
 		this.title = title;
 	}

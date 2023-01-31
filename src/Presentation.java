@@ -45,8 +45,7 @@ public class Presentation {
 	 */
 	public void clearSlides() {
 		showList = new ArrayList<>();
-		showList.add(new Slide(""));
-		this.setActiveSlide(0);
+		slideViewComponent.update(null, 0, 0);
 	}
 
 	/**
@@ -63,7 +62,11 @@ public class Presentation {
 	 * @return Slide object
 	 */
 	public Slide getSlide(int number) {
-		return showList.get(number);
+		if(number < showList.size() && number >= 0){
+			return showList.get(number);
+		} else {
+			return null;
+		}
 	}
 
 	public int getSlideCount() {

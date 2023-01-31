@@ -59,13 +59,15 @@ public class SlideViewerComponent extends JComponent {
 	 * @param pageCount The total number of pages
 	 */
 	public void update(Slide slide, int currentPage, int pageCount) {
+        this.slide = slide;
+
 		if (slide == null) {
+			System.out.println("n");
 			repaint();
 			return;
 		}
 		this.currentPage = currentPage;
 		this.pageCount = pageCount;
-		this.slide = slide;
 		repaint();
 	}
 
@@ -76,7 +78,7 @@ public class SlideViewerComponent extends JComponent {
 	public void paintComponent(Graphics graphics) {
 		graphics.setColor(BGCOLOR);
 		graphics.fillRect(0, 0, getSize().width, getSize().height);
-		if (this.currentPage < 0 || slide == null) {
+		if (slide == null) {
 			return;
 		}
 		Font font = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
