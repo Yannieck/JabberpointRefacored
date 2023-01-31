@@ -62,7 +62,6 @@ public class SlideViewerComponent extends JComponent {
         this.slide = slide;
 
 		if (slide == null) {
-			System.out.println("n");
 			repaint();
 			return;
 		}
